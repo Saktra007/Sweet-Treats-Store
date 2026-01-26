@@ -1,4 +1,6 @@
-const products = [
+import { addToCart, clearCart, removeCart, updateCartUI } from "./cart.js";
+
+export const products = [
   {
     id: 1,
     name: "Strawberry Donut",
@@ -22,79 +24,80 @@ const products = [
   },
 ];
 
-let cart = [];
-
-function renderProducts() {
+function renderProduct() {
   const productList = document.getElementById("product-list");
-  productList.innerHTML = "";
-
-  products.forEach((product) => {
-    const div = document.createElement("div");
-    div.className = "product";
-    div.innerHTML = `
-        <img src="${product.image}" alt="${product.name}" />
-        <h3>${product.name}</h3>
-        <p>$${product.price.toFixed(2)}</p>
-        <button onclick="addToCart(${product.id})">Add to Cart</button>
-      `;
-    productList.appendChild(div);
-  });
+  productList.innerHTML = products
+    .map(
+      (p) =>
+        `
+    <div class="product" data-aos="zoom-in-up">
+      <img src="${p.image}" alt="${p.name}">
+      <h3>${p.name}</h3>
+      <p>${p.price}</p>
+      <button onclick="handleAddToCart(${p.id})">Add TO Cart</button>
+    </div>
+    `,
+    )
+    .join("");
 }
 
-function addToCart(productId) {
-  const product = products.find((p) => p.id === productId);
-  cart.push(product);
-  updateCart();
+window.handleAddToCart = (id) => {
+  addToCart(id);
+  const addedProduct = products.find((p) => p.id === id);
+  if (addedProduct) showToast(`🍰 ${addedProduct.name} added!`);
+};
+
+window.handleRemove = (id) => removeCart(id);
+window.clearCart = () => clearCart();
+window.toggleCart = () =>
+  document.getElementById("cart-sidebar").classList.toggle("open");
+window.toggleDarkMode = () => document.body.classList.toggle("dark");
+
+function showPopup() {
+  const popup = document.getElementById("popup");
+  popup.classList.add("show");
+  setTimeout(() => popup.classList.remove("show"), 3000);
 }
 
-function updateCart() {
-  document.getElementById("cart-count").innerText = cart.length;
-  const cartItems = document.getElementById("cart-items");
-  const cartTotal = document.getElementById("cart-total");
+function loadComponent(id, path) {
+  fetch(path)
+    .then((Response) => Response.text())
+    .then((data) => {
+      document.getElementById(id).innerHTML = data;
+      AOS.init();
+      AOS.refresh();
+      if (id === "header-placeholder") updateCartUI();
+    });
+}
+loadComponent("header-placeholder", "components/header.html");
+loadComponent("footer-placeholder", "components/footer.html");
+loadComponent("hero-placeholder", "components/hero.html");
 
-  cartItems.innerHTML = "";
-  let total = 0;
+function showToast(message) {
+  const container = document.getElementById("toast-container");
+  const toast = document.createElement("div");
+  toast.className = "toast success";
+  toast.innerHTML = `<span>${message}</span>
+    <button style="background:none; border:none; color:white; cursor:pointer; margin-left:10px;">✕</button>`;
 
-  cart.forEach((item) => {
-    const li = document.createElement("li");
-    li.textContent = `${item.name} - $${item.price.toFixed(2)}`;
-    cartItems.appendChild(li);
-    total += item.price;
-  });
+  container.appendChild(toast);
 
-  cartTotal.innerText = total.toFixed(2);
+  const removeToast = () => {
+    toast.classList.add("fade-out");
+    setTimeout(() => toast.remove(), 500);
+  };
+
+  const autoClose = setTimeout(removeToast, 3000);
+
+  toast.querySelector("button").onclick = () => {
+    clearTimeout(autoClose);
+    removeToast();
+  };
 }
 
-function clearCart() {
-  cart = [];
-  updateCart();
-}
+renderProduct();
+updateCartUI();
 
-renderProducts();
-function submitOrder(event) {
-  event.preventDefault();
-
-  if (cart.length === 0) {
-    alert("Your cart is empty.");
-    return;
-  }
-
-  const name = document.getElementById("name").value.trim();
-  const address = document.getElementById("address").value.trim();
-  const payment = document.getElementById("payment").value;
-
-  if (name && address && payment) {
-    alert(
-      `Thank you ${name}! Your order has been placed.\nPayment Method: ${payment}`,
-    );
-    clearCart();
-    document.getElementById("checkoutForm").reset();
-  }
-}
-function toggleCart() {
-  const cartSidebar = document.getElementById("cart-sidebar");
-  cartSidebar.classList.toggle("open");
-}
 function submitOrder(event) {
   event.preventDefault();
 
@@ -113,23 +116,3 @@ function submitOrder(event) {
     document.getElementById("checkoutForm").reset();
   }
 }
-
-function showPopup() {
-  const popup = document.getElementById("popup");
-  popup.classList.add("show");
-  setTimeout(() => popup.classList.remove("show"), 3000);
-}
-function toggleDarkMode() {
-  document.body.classList.toggle("dark");
-}
-
-function loadComponent(id, path) {
-  fetch(path)
-    .then((Response) => Response.text())
-    .then((data) => {
-      document.getElementById(id).innerHTML = data;
-      // if (id === "header-placeholder") updateCart();
-    });
-}
-loadComponent("header-placeholder", "components/header.html");
-loadComponent("footer-placeholder", "components/footer.html");

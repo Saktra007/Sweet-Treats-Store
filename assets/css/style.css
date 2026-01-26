@@ -13,6 +13,8 @@ body {
 header {
   background: #ff8fa3;
   color: white;
+  position: sticky;
+  top: 0;
   padding: 1em;
   display: flex;
   justify-content: space-between;
@@ -26,12 +28,55 @@ header h1 {
   animation: slideInLeft 0.8s ease;
 }
 
+#header-placeholder {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
 .cart {
   cursor: pointer;
   font-weight: bold;
   animation: slideInRight 0.8s ease;
 }
 
+.hero {
+  display: flex;
+  position: relative;
+  height: 80vh;
+  min-height: 500px;
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
+    url(../images/Hero-Background.jpg) center / cover no-repeat;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  flex-direction: column;
+  animation: fadeIn 1s ease;
+}
+.hero > h1 {
+  font-size: 4.5rem;
+  margin-bottom: 2rem;
+}
+.hero > p {
+  font-size: 2rem;
+  margin-bottom: 2.5rem;
+}
+.hero > a {
+  background-color: #ff69b4;
+  color: white;
+  font-size: 1.3rem;
+  font-weight: bold;
+  padding: 16px 40px;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+.hero > a:hover {
+  background-color: #ff6f91;
+  transform: scale(1.1);
+}
 .products {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -59,6 +104,9 @@ header h1 {
 .product img {
   max-width: 100%;
   border-radius: 8px;
+  width: 300px;
+  height: 200px;
+  object-fit: cover;
   transition: transform 0.3s ease;
 }
 
@@ -116,7 +164,7 @@ button:hover {
   position: fixed;
   right: -400px;
   top: 0;
-  width: 300px;
+  width: 350px;
   height: 100%;
   background: white;
   border-left: 2px solid #eee;
@@ -127,9 +175,88 @@ button:hover {
   transition: right 0.4s ease;
 }
 
+.cart-title {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid pink;
+  margin-bottom: 10px;
+  padding: 15px;
+}
+
+#cart-items {
+  border-bottom: 1px solid pink;
+}
+#cart-items > li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid pink;
+  padding: 12px;
+}
+.cart-clear {
+  display: flex;
+  padding-top: 10px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cart-clear > p {
+  display: inline-block;
+  text-decoration: underline;
+  text-underline-offset: 6px;
+}
 .cart-sidebar.open {
   right: 0;
 }
+
+.toast-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  gap: 10;
+}
+
+.toast {
+  background-color: #333;
+  color: #fff;
+  padding: 16px 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  font-family: sans-serif;
+  min-width: 200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  animation: slideIn 0.3 ease;
+  transition: opacity 0.4s ease;
+}
+
+.toast.success {
+  margin: 2px;
+  border-left: 5px solid #ff6f61;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.toast.fade-out {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: 0.5s;
+}
+
 .popup {
   position: fixed;
   top: 20px;
@@ -165,7 +292,7 @@ body.dark button {
 }
 
 /* Responsive Breakpoint */
-@media (max-width: 600px) {
+@media (max-width: 740px) {
   header {
     flex-direction: column;
     text-align: center;
@@ -174,6 +301,16 @@ body.dark button {
 
   .product {
     font-size: 0.95em;
+  }
+.footer {
+    flex-direction: column; 
+    align-items: center;
+  }
+
+  .footer > div {
+    width: 100% !important;
+    margin-bottom: 20px;    
+    padding: 15px;
   }
 }
 
@@ -217,11 +354,12 @@ body.dark button {
 .footer {
   padding-top: 20px;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   text-align: center;
 }
 .footer > div {
   width: 32%;
+  background-color: #4caf50;
   padding: 20px;
   font-size: 1.4rem;
   align-items: center;
@@ -237,8 +375,8 @@ li > a {
   color: black;
   text-decoration: none;
 }
-li>a:hover{
-  color:blue;
+li > a:hover {
+  color: blue;
 }
 li {
   list-style: none;
@@ -248,13 +386,11 @@ li {
   display: flex;
   width: 97%;
   justify-content: center;
-  margin: 30px;
 }
-.footer-button>p{
+.footer-button > p {
   width: 100%;
   text-align: center;
   margin-top: 10px;
   padding: 20px;
   border-top: 1px solid rgb(233, 191, 152);
- 
 }

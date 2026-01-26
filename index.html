@@ -4,6 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Simple Online Store</title>
+    <meta
+      name="description"
+      content="លក់បង្អែមគ្រប់មុខ រសជាតិផ្អែមឆ្ងាញ់ សេវាកម្មរហ័ស"
+    />
+
+    <meta property="og:title" content="Sweet Treats Store" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="./assets/images/og-image.jpg" />
     <link rel="stylesheet" href="./assets/css/style.css" />
     <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
     <link
@@ -11,22 +19,31 @@
       href="./assets/images/Sweet Treats Store.png"
       type="image/x-icon"
     />
-    <script src="https://unpkg.com/lucide@latest"></script>
   </head>
   <body>
     <div id="header-placeholder"></div>
+
+    <div id="hero-placeholder"></div>
+
     <main>
       <div class="products" id="product-list">
         <!-- Products will be added dynamically -->
       </div>
     </main>
+
     <div class="cart-sidebar" id="cart-sidebar">
-      <h2>🛒 Shopping Cart</h2>
+      <div class="cart-title">
+        <h2>🛒 Shopping Cart</h2>
+        <button onclick="toggleCart()">X</button>
+      </div>
       <ul id="cart-items"></ul>
-      <p>Total: $<span id="cart-total">0.00</span></p>
-      <button onclick="clearCart()">Clear Cart</button>
-      <button onclick="toggleCart()">Close</button>
+      <div class="cart-clear">
+        <p>Total: $<span id="cart-total">0.00</span></p>
+        <button onclick="clearCart()">Clear Cart</button>
+      </div>
     </div>
+
+    <div id="toast-container" class="toast-container"></div>
 
     <section class="checkout-form">
       <h2>Checkout</h2>
@@ -50,11 +67,12 @@
         <button type="submit">Submit Order</button>
       </form>
     </section>
-    <div id="footer-placeholder"></div>
-    <script src="/assets/js/script.js"></script>
+    <div data-aos="zoom-in" id="footer-placeholder"></div>
+
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script type="module" src="/assets/js/script.js"></script>
     <script>
-      AOS.init();
+      AOS.init({});
     </script>
   </body>
   <div id="popup" class="popup">🎉 Order Successful!</div>
