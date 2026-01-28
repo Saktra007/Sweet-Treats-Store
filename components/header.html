@@ -2,8 +2,13 @@
   <div>
     <h1>Sweet Treats Store</h1>
   </div>
-  <div class="cart" onclick="toggleCart()">
-    🛒 Cart (<span id="cart-count">0</span>)
+  <div class="header-controls">
+    <div class="cart" onclick="toggleCart()">
+      <i class="fa-solid fa-cart-shopping"></i>
+      <span id="cart-count">0</span>
+    </div>
+    <button onclick="toggleDarkMode()" id="theme-toggle">
+      <i id="theme-icon" class="fa-solid fa-moon"></i>
+    </button>
   </div>
-  <button onclick="toggleDarkMode()">🌙 Dark Mode</button>
 </header>
