@@ -51,7 +51,27 @@ window.handleRemove = (id) => removeCart(id);
 window.clearCart = () => clearCart();
 window.toggleCart = () =>
   document.getElementById("cart-sidebar").classList.toggle("open");
-window.toggleDarkMode = () => document.body.classList.toggle("dark");
+
+window.toggleDarkMode = () => {
+  const body = document.body;
+  const icon = document.getElementById("theme-icon");
+  const btnText = document.getElementById("theme-toggle");
+
+  body.classList.toggle("dark");
+
+  if (body.classList.contains("dark")) {
+    icon.className = "fa-solid fa-sun";
+    btnText.innerHTML = '<i id="theme-icon" class="fa-solid fa-sun"></i>';
+  } else {
+    icon.className = "fa-solid fa-moon";
+    btnText.innerHTML = '<i id="theme-icon" class="fa-solid fa-moon"></i>';
+  }
+};
+
+window.checkout = () => {
+  const check = document.querySelector(".checkout-form");
+  check.classList.toggle("open");
+};
 
 function showPopup() {
   const popup = document.getElementById("popup");
