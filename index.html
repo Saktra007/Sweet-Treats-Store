@@ -8,7 +8,10 @@
       name="description"
       content="លក់បង្អែមគ្រប់មុខ រសជាតិផ្អែមឆ្ងាញ់ សេវាកម្មរហ័ស"
     />
-
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
     <meta property="og:title" content="Sweet Treats Store" />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="./assets/images/og-image.jpg" />
@@ -34,12 +37,15 @@
     <div class="cart-sidebar" id="cart-sidebar">
       <div class="cart-title">
         <h2>🛒 Shopping Cart</h2>
-        <button onclick="toggleCart()">X</button>
+        <div class="cart-close" onclick="toggleCart()">X</div>
       </div>
       <ul id="cart-items"></ul>
       <div class="cart-clear">
-        <p>Total: $<span id="cart-total">0.00</span></p>
-        <button onclick="clearCart()">Clear Cart</button>
+        <div class="total">
+          <p>Total:</p>
+          <p>$<span id="cart-total"> 0.00</span></p>
+        </div>
+        <button class="check" onclick="checkout()">Checkout</button>
       </div>
     </div>
 
