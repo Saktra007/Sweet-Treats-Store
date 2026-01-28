@@ -26,13 +26,16 @@ export function updateCartUI() {
   const cartCount = document.getElementById("cart-count");
   const cartItems = document.getElementById("cart-items");
   const cartTotal = document.getElementById("cart-total");
-  if (cartCount)
-    cartCount.innerText = cart.reduce((sum, item) => sum + item.quantity, 0);
+  if (cartCount) {
+    const totalItem = cart.reduce((sum, item) => sum + item.quantity, 0);
+    cartCount.innerText = totalItem;
 
+  }
   cartItems.innerHTML = cart
     .map(
       (item) => `
-    <li>
+    <li class="cartUI">
+      <img src="${item.image}" alt="${item.name}"/>
       ${item.name} X${item.quantity} -$${(item.price * item.quantity).toFixed(2)}
       <button onclick="handleRemove(${item.id})">X</button>
     </li>
