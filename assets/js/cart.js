@@ -30,14 +30,30 @@ export function updateCartUI() {
     const totalItem = cart.reduce((sum, item) => sum + item.quantity, 0);
     cartCount.innerText = totalItem;
 
+    cartCount.style.display = totalItem > 0 ? "inline" : "none";
   }
   cartItems.innerHTML = cart
     .map(
       (item) => `
     <li class="cartUI">
       <img src="${item.image}" alt="${item.name}"/>
-      ${item.name} X${item.quantity} -$${(item.price * item.quantity).toFixed(2)}
-      <button onclick="handleRemove(${item.id})">X</button>
+      <div class="item">
+        <div class="item-into">
+          <h1 >${item.name}</h1> 
+          <p>$${item.price}</p>
+        </div>
+        <div class="item-controls">
+          <button onclick="handleDecrease(${item.id})">-</button>
+          <span>${item.quantity}</span>
+          <button onclick="handleIncrease(${item.id})">+</button>
+        </div>
+      </div>
+      <div class="item-remove-price">
+        <button class="remove-btn" onclick="handleRemove(${item.id})">
+          <i class="fa-regular fa-trash-can"></i>
+        </button>
+        <p class="subtotal">$${(item.price * item.quantity).toFixed(2)}</p>
+      </div>
     </li>
     `,
     )
@@ -49,5 +65,20 @@ export function updateCartUI() {
 export function clearCart() {
   cart = [];
   saveCart();
+  updateCartUI();
+}
+
+export function increaseQty(id) {
+  const item = cart.find((p) => p.id === id);
+  if (item) item.quantity += 1;
+  updateCartUI();
+}
+
+export function decreaseQty(id) {
+  const itemIndex = cart.findIndex((p) => p.id === id);
+  if (itemIndex > -1) {
+    cart[itemIndex].quantity -= 1;
+    if (cart[itemIndex].quantity < 1) cart.splice(itemIndex, 1);
+  }
   updateCartUI();
 }
