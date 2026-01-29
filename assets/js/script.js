@@ -1,4 +1,11 @@
-import { addToCart, clearCart, removeCart, updateCartUI } from "./cart.js";
+import {
+  addToCart,
+  clearCart,
+  decreaseQty,
+  increaseQty,
+  removeCart,
+  updateCartUI,
+} from "./cart.js";
 
 export const products = [
   {
@@ -32,9 +39,9 @@ function renderProduct() {
         `
     <div class="product" data-aos="zoom-in-up">
       <img src="${p.image}" alt="${p.name}">
-      <h3>${p.name}</h3>
-      <p>${p.price}</p>
-      <button onclick="handleAddToCart(${p.id})">Add TO Cart</button>
+      <h3 class="product-name">${p.name}</h3>
+      <p class="product-price">$${p.price}</p>
+      <button class="add-cart" onclick="handleAddToCart(${p.id})"><i class="fa-solid fa-cart-shopping"></i> Add TO Cart</button>
     </div>
     `,
     )
@@ -51,7 +58,8 @@ window.handleRemove = (id) => removeCart(id);
 window.clearCart = () => clearCart();
 window.toggleCart = () =>
   document.getElementById("cart-sidebar").classList.toggle("open");
-
+window.handleIncrease = (id) => increaseQty(id);
+window.handleDecrease = (id) => decreaseQty(id);
 window.toggleDarkMode = () => {
   const body = document.body;
   const icon = document.getElementById("theme-icon");
