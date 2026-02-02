@@ -1,0 +1,191 @@
+<section class="checkout-form">
+  <div class="checkout-model">
+    <h2>Checkout</h2>
+    <form id="checkoutForm" onsubmit="handleSubmitOrder(event)">
+      <div class="shipping-info">
+        <div class="card">
+          <h1><i class="fa-solid fa-truck-fast"></i>Shipping Information</h1>
+          <div class="form-full">
+            <div class="form-col">
+              <label> Full Name </label>
+              <input type="text" id="name" placeholder="John Doe" required />
+            </div>
+            <div class="form-row">
+              <label>Email Address</label>
+              <input type="email" placeholder="example@mail.com" />
+            </div>
+            <div class="form-row">
+              <label> Phone Number </label>
+              <input
+                type="text"
+                id="phone"
+                pattern="[0-9] {9.10}"
+                placeholder="+885 12 345 678"
+              />
+            </div>
+            <div class="form-col">
+              <label for="address"> Street Address </label>
+              <div class="input-wrapper">
+                <input
+                  type="text"
+                  id="address"
+                  placeholder="123 Maple Avenue"
+                  required
+                />
+                <small>Apartment, suite, unit, building, floor, etc.</small>
+              </div>
+            </div>
+            <div class="form-row">
+              <label for="city">City</label>
+              <input
+                type="text"
+                id="city"
+                placeholder="San Francisco"
+                required
+              />
+            </div>
+            <div class="form-row">
+              <label for="zip">Zip Code</label>
+              <input type="text" id="zip" placeholder="94103" required />
+            </div>
+            <div class="form-col">
+              <label for="country">Country</label>
+              <select id="country">
+                <option value="us">United States</option>
+                <option value="kh">Cambodia</option>
+                <option value="uk">United Kingdom</option>
+              </select>
+            </div>
+            <div class="form-col">
+              <label>Address Type</label>
+            </div>
+            <div class="form-type">
+              <label class="radio-card">
+                <input type="radio" name="addr-type" value="home" checked />
+                <span><i class="fa-regular fa-house"></i> Home</span>
+              </label>
+              <label class="radio-card"
+                ><input type="radio" name="addr-type" value="office" /><span
+                  ><i class="fa-regular fa-building"></i>office</span
+                ></label
+              >
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <h1><i class="fa-solid fa-credit-card"></i>Payment Method</h1>
+          <div class="payment-methods">
+            <div class="method-box">
+              <input
+                type="radio"
+                name="payment"
+                id="card-radio"
+                value="Credit Card"
+                checked
+              /><label for="card-radio" class="method-label"
+                ><div class="method-icon">
+                  <i class="fa-solid fa-wallet"></i>
+                </div>
+                <div class="method-text">
+                  <span class="method-name">Credit / Debit Card</span
+                  ><span class="method-desc"
+                    >Supports Visa, MasterCard, JCB</span
+                  >
+                </div>
+                <i class="fa-solid fa-circle-check check-icon"></i
+              ></label>
+              <div id="card-pane" class="payment-pane">
+                <div class="form-full">
+                  <div class="form-col">
+                    <label>Card Number</label
+                    ><input type="text" placeholder="0000 0000 0000 0000" />
+                  </div>
+                  <div class="form-row">
+                    <label>Expiry Date</label>
+                    <input type="text" placeholder="MM/YY" />
+                  </div>
+                  <div class="form-row">
+                    <label>CVV</label>
+                    <input type="password" placeholder="***" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="method-box">
+              <input
+                type="radio"
+                name="payment"
+                id="paypal-radio"
+                value="PayPal"
+              />
+              <label class="method-label" for="paypal-radio">
+                <div class="method-icon" style="color: #003087">
+                  <i class="fa-brands fa-paypal"></i>
+                </div>
+                <div class="method-text">
+                  <span class="method-name">PayPal</span
+                  ><span class="method-desc"
+                    >Fast and secure checkout via PayPal</span
+                  >
+                </div>
+                <i class="fa-solid fa-circle-check check-icon"></i>
+              </label>
+              <div id="paypal-pane" class="payment-pane">
+                <p>
+                  After clicking " Complete Order ", you will be redirected to
+                  PayPal to complete your purchase.
+                </p>
+              </div>
+            </div>
+            <div class="method-box">
+              <input
+                type="radio"
+                name="payment"
+                id="aba-radio"
+                value="ABA KHQR"
+              />
+              <label for="aba-radio" class="method-label"
+                ><div class="method-icon" style="color: #005e7e">
+                  <i class="fa-solid fa-qrcode"></i>
+                </div>
+                <div class="method-text">
+                  <span class="method-name">ABA KHQR</span
+                  ><span class="method-desc"
+                    >Scan to pay with your mobile app</span
+                  >
+                </div>
+                <i class="fa-solid fa-circle-check check-icon"></i
+              ></label>
+              <div
+                id="aba-pane"
+                class="payment-pane"
+                style="text-align: center"
+              >
+                <div
+                  style="
+                    background: white;
+                    padding: 15px;
+                    border-radius: 12px;
+                    display: inline-block;
+                    border: 1px solid var(--border);
+                  "
+                >
+                  <img
+                    src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=ABA_PAYMENT_DEMO"
+                    alt="KHQR"
+                    style="width: 150px"
+                  />
+                </div>
+                <p style="margin-top: 12px; font-weight: 700; color: #005e7e">
+                  SCAN TO PAY
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button type="submit">Submit Order</button>
+      <button class="cancel" onclick="checkout()">Cancel</button>
+    </form>
+  </div>
+</section>

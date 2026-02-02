@@ -1,4 +1,4 @@
-import { products } from "./script.js";
+import { products } from "./products.js";
 
 export let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
@@ -7,10 +7,10 @@ export function saveCart() {
 }
 
 export function addToCart(productId) {
-  const prouct = products.find((p) => p.id === productId);
+  const product = products.find((p) => p.id === productId);
   const existing = cart.find((item) => item.id === productId);
 
-  existing ? (existing.quantity += 1) : cart.push({ ...prouct, quantity: 1 });
+  existing ? (existing.quantity += 1) : cart.push({ ...product, quantity: 1 });
 
   saveCart();
   updateCartUI();
@@ -26,10 +26,22 @@ export function updateCartUI() {
   const cartCount = document.getElementById("cart-count");
   const cartItems = document.getElementById("cart-items");
   const cartTotal = document.getElementById("cart-total");
+  const totalItem = cart.reduce((sum, item) => sum + item.quantity, 0);
+  if (cart.length === 0) {
+    cartItems.innerHTML = `
+      <div style="text-align:center;padding:50px 20px;">
+        <i class="fa-solid fa-cookie-bite" style="font-size:4rem;color:#ddd;margin-bottom:15px;"></i>
+        <p style="color:#888;">Your cart Is empty!</p>
+        <button onclick="toggleCart()" style="margin-top:15px;background:#ff69b4;color:white;border:none;padding:10px 20px;border-radius:20px;cursor:pointer;">
+          Start shopping
+        </button>
+      </div>
+    `;
+    if (cartTotal) cartTotal.innerText = "0.00";
+    return;
+  }
   if (cartCount) {
-    const totalItem = cart.reduce((sum, item) => sum + item.quantity, 0);
     cartCount.innerText = totalItem;
-
     cartCount.style.display = totalItem > 0 ? "inline" : "none";
   }
   cartItems.innerHTML = cart

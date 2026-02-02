@@ -1,35 +1,13 @@
 import {
   addToCart,
+  cart,
   clearCart,
   decreaseQty,
   increaseQty,
   removeCart,
   updateCartUI,
 } from "./cart.js";
-
-export const products = [
-  {
-    id: 1,
-    name: "Strawberry Donut",
-    price: 1.99,
-    image:
-      "https://tse4.mm.bing.net/th?id=OIP.6MqYsaZt8JgVVXw3uysxUQHaHa&pid=Api&P=0&h=220",
-  },
-  {
-    id: 2,
-    name: "Chocolate Cake",
-    price: 3.49,
-    image:
-      "https://tse2.mm.bing.net/th?id=OIP.UsTdcdwI9KQNitBaLD8rSgHaFx&pid=Api&P=0&h=220",
-  },
-  {
-    id: 3,
-    name: "Macaron Pack",
-    price: 4.99,
-    image:
-      "https://tse4.mm.bing.net/th?id=OIP.uJAHgRy1g8aEgm_-9TXTnQHaE-&pid=Api&P=0&h=220",
-  },
-];
+import { products } from "./products.js";
 
 function renderProduct() {
   const productList = document.getElementById("product-list");
@@ -50,6 +28,9 @@ function renderProduct() {
 
 window.handleAddToCart = (id) => {
   addToCart(id);
+  const cartBtn = document.querySelector(".cart");
+  cartBtn.classList.add("cart-animate");
+  setTimeout(() => cartBtn.classList.remove("cart-animate"), 400);
   const addedProduct = products.find((p) => p.id === id);
   if (addedProduct) showToast(`🍰 ${addedProduct.name} added!`);
 };
@@ -63,22 +44,21 @@ window.handleDecrease = (id) => decreaseQty(id);
 window.toggleDarkMode = () => {
   const body = document.body;
   const icon = document.getElementById("theme-icon");
-  const btnText = document.getElementById("theme-toggle");
 
   body.classList.toggle("dark");
 
-  if (body.classList.contains("dark")) {
-    icon.className = "fa-solid fa-sun";
-    btnText.innerHTML = '<i id="theme-icon" class="fa-solid fa-sun"></i>';
-  } else {
-    icon.className = "fa-solid fa-moon";
-    btnText.innerHTML = '<i id="theme-icon" class="fa-solid fa-moon"></i>';
-  }
+  const isDark = body.classList.contains("dark");
+  icon.className = isDark ? "fa-solid fa-sun" : "fa-solid fa-moon";
 };
-
 window.checkout = () => {
+  if (
+    cart.length === 0 &&
+    !document.querySelector(".checkout-form").classList.contains("active")
+  ) {
+    showToast("🛒 Please add items to cart first!");
+  }
   const check = document.querySelector(".checkout-form");
-  check.classList.toggle("open");
+  check.classList.toggle("active");
 };
 
 function showPopup() {
@@ -100,7 +80,7 @@ function loadComponent(id, path) {
 loadComponent("header-placeholder", "components/header.html");
 loadComponent("footer-placeholder", "components/footer.html");
 loadComponent("hero-placeholder", "components/hero.html");
-
+loadComponent("checkout-placeholder", "components/checkout.html");
 function showToast(message) {
   const container = document.getElementById("toast-container");
   const toast = document.createElement("div");
@@ -126,7 +106,7 @@ function showToast(message) {
 renderProduct();
 updateCartUI();
 
-function submitOrder(event) {
+window.handleSubmitOrder = (event) => {
   event.preventDefault();
 
   if (cart.length === 0) {
@@ -136,11 +116,24 @@ function submitOrder(event) {
 
   const name = document.getElementById("name").value.trim();
   const address = document.getElementById("address").value.trim();
-  const payment = document.getElementById("payment").value;
+  const phone = document.getElementById("phone").value;
+  const paymentMethod = document.querySelector(
+    'input[name="payment"]:checked',
+  ).value;
 
-  if (name && address && payment) {
-    showPopup();
-    clearCart();
-    document.getElementById("checkoutForm").reset();
-  }
-}
+  const orderDetails = {
+    customerName: name,
+    shippingAddress: address,
+    phoneNumber: phone,
+    payment: paymentMethod,
+    items: cart,
+    totalPrice: document.getElementById("cart-total").innerText,
+  };
+
+  console.log("Order Received:", orderDetails);
+
+  showPopup();
+  clearCart();
+  document.getElementById("checkoutForm").reset();
+  window.checkout();
+};
