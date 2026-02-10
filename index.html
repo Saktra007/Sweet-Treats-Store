@@ -25,34 +25,35 @@
   </head>
   <body>
     <div id="header-placeholder"></div>
+    <div class="container">
+      <div id="hero-placeholder"></div>
 
-    <div id="hero-placeholder"></div>
-
-    <main>
-      <div class="products" id="product-list">
-        <!-- Products will be added dynamically -->
-      </div>
-    </main>
-
-    <div class="cart-sidebar" id="cart-sidebar">
-      <div class="cart-title">
-        <h2>🛒 Shopping Cart</h2>
-        <div class="cart-close" onclick="toggleCart()">X</div>
-      </div>
-      <ul id="cart-items" class="cart-items"></ul>
-      <div class="cart-total">
-        <div class="total">
-          <p>Total:</p>
-          <p>$<span id="cart-total"> 0.00</span></p>
+      <main>
+        <div class="products" id="product-list">
+          <!-- Products will be added dynamically -->
         </div>
-        <button class="check" onclick="checkout()">Checkout</button>
+      </main>
+
+      <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-title">
+          <h2>🛒 Shopping Cart</h2>
+          <div class="cart-close" onclick="toggleCart()">X</div>
+        </div>
+        <ul id="cart-items" class="cart-items"></ul>
+        <div class="cart-total">
+          <div class="total">
+            <p>Total:</p>
+            <p>$<span id="cart-total"> 0.00</span></p>
+          </div>
+          <button class="check" onclick="checkout()">Checkout</button>
+        </div>
       </div>
+
+      <div id="toast-container" class="toast-container"></div>
+
+      <div class="checkout-placeholder" id="checkout-placeholder"></div>
+      <div data-aos="zoom-in" id="footer-placeholder"></div>
     </div>
-
-    <div id="toast-container" class="toast-container"></div>
-
-    <div class="checkout-placeholder" id="checkout-placeholder"></div>
-    <div data-aos="zoom-in" id="footer-placeholder"></div>
 
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
     <script type="module" src="/assets/js/script.js"></script>
