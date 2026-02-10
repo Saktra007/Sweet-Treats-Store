@@ -19,7 +19,7 @@
               <input
                 type="text"
                 id="phone"
-                pattern="[0-9] {9.10}"
+                pattern="[0-9] {9,10}"
                 placeholder="+885 12 345 678"
               />
             </div>
@@ -184,8 +184,8 @@
           </div>
         </div>
       </div>
-      <button type="submit">Submit Order</button>
-      <button class="cancel" onclick="checkout()">Cancel</button>
+      <button class="btn btn-submit" type="submit">Submit Order</button>
+      <button class="btn btn-cancel" onclick="checkout()">Cancel</button>
     </form>
   </div>
 </section>
