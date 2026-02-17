@@ -18,7 +18,7 @@ function renderProduct() {
     <div class="product" data-aos="zoom-in-up">
       <img src="${p.image}" alt="${p.name}">
       <h3 class="product-name">${p.name}</h3>
-      <p class="product-price">$${p.price}</p>
+      <p class="product-price">$ ${p.price}</p>
       <button class="add-cart" onclick="handleAddToCart(${p.id})"><i class="fa-solid fa-cart-shopping"></i> Add TO Cart</button>
     </div>
     `,
@@ -28,19 +28,27 @@ function renderProduct() {
 
 window.handleAddToCart = (id) => {
   addToCart(id);
-  const cartBtn = document.querySelector(".cart");
-  cartBtn.classList.add("cart-animate");
-  setTimeout(() => cartBtn.classList.remove("cart-animate"), 400);
   const addedProduct = products.find((p) => p.id === id);
   if (addedProduct) showToast(`🍰 ${addedProduct.name} added!`);
 };
 
 window.handleRemove = (id) => removeCart(id);
 window.clearCart = () => clearCart();
-window.toggleCart = () =>
-  document.getElementById("cart-sidebar").classList.toggle("open");
+window.toggleCart = () => {
+  const sidebar = document.getElementById("cart-sidebar");
+  const overlay = document.getElementById("cart-overlay");
+  sidebar.classList.toggle("active");
+  overlay.classList.toggle("active");
+
+  if (sidebar.classList.contains("active")) {
+    document.body.style.overflow = "hidden";
+  } else {
+    document.body.style.overflow = "auto";
+  }
+};
 window.handleIncrease = (id) => increaseQty(id);
 window.handleDecrease = (id) => decreaseQty(id);
+
 window.toggleDarkMode = () => {
   const body = document.body;
   const icon = document.getElementById("theme-icon");
@@ -53,11 +61,14 @@ window.toggleDarkMode = () => {
 window.checkout = () => {
   if (
     cart.length === 0 &&
-    !document.querySelector(".checkout-form").classList.contains("active")
+    !document
+      .querySelector(".checkout-placeholder")
+      .classList.contains("active")
   ) {
     showToast("🛒 Please add items to cart first!");
+    return;
   }
-  const check = document.querySelector(".checkout-form");
+  const check = document.querySelector(".checkout-placeholder");
   check.classList.toggle("active");
 };
 
@@ -66,27 +77,12 @@ function showPopup() {
   popup.classList.add("show");
   setTimeout(() => popup.classList.remove("show"), 3000);
 }
-
-function loadComponent(id, path) {
-  fetch(path)
-    .then((Response) => Response.text())
-    .then((data) => {
-      document.getElementById(id).innerHTML = data;
-      AOS.init();
-      AOS.refresh();
-      if (id === "header-placeholder") updateCartUI();
-    });
-}
-loadComponent("header-placeholder", "components/header.html");
-loadComponent("footer-placeholder", "components/footer.html");
-loadComponent("hero-placeholder", "components/hero.html");
-loadComponent("checkout-placeholder", "components/checkout.html");
 function showToast(message) {
   const container = document.getElementById("toast-container");
   const toast = document.createElement("div");
   toast.className = "toast success";
   toast.innerHTML = `<span>${message}</span>
-    <button style="background:none; border:none; color:white; cursor:pointer; margin-left:10px;">✕</button>`;
+  <button >✕</button>`;
 
   container.appendChild(toast);
 
@@ -103,23 +99,44 @@ function showToast(message) {
   };
 }
 
-renderProduct();
-updateCartUI();
+async function initApp() {
+  await Promise.all([
+    loadComponent("header-placeholder", "components/header.html"),
+    loadComponent("footer-placeholder", "components/footer.html"),
+    loadComponent("hero-placeholder", "components/hero.html"),
+    loadComponent("checkout-placeholder", "components/checkout.html"),
+  ]);
+
+  renderProduct();
+  updateCartUI();
+  AOS.init({ duration: 800 });
+}
+
+function loadComponent(id, path) {
+  return fetch(path)
+    .then((Response) => Response.text())
+    .then((data) => {
+      const el = document.getElementById(id);
+      if (el) el.innerHTML = data;
+    })
+    .catch((err) => console.error(`Failed to load ${path}:`, err));
+}
+
+initApp();
 
 window.handleSubmitOrder = (event) => {
   event.preventDefault();
 
   if (cart.length === 0) {
-    alert("Your cart is empty.");
+    showToast("Your cart is empty.");
     return;
   }
 
-  const name = document.getElementById("name").value.trim();
-  const address = document.getElementById("address").value.trim();
-  const phone = document.getElementById("phone").value;
-  const paymentMethod = document.querySelector(
-    'input[name="payment"]:checked',
-  ).value;
+  const name = document.getElementById("name")?.value.trim();
+  const address = document.getElementById("address")?.value.trim();
+  const phone = document.getElementById("phone")?.value.trim();
+  const paymentElemnt = document.querySelector('input[name="payment"]:checked');
+  const paymentMethod = paymentElemnt ? paymentElemnt.value : "Not Selected";
 
   const orderDetails = {
     customerName: name,
@@ -134,6 +151,9 @@ window.handleSubmitOrder = (event) => {
 
   showPopup();
   clearCart();
-  document.getElementById("checkoutForm").reset();
-  window.checkout();
+  event.target.reset();
+
+  setTimeout(() => {
+    window.checkout();
+  }, 500);
 };
