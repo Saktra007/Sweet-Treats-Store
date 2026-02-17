@@ -14,7 +14,7 @@
 
 ## 🚀 Live Demo
 
-🔗 https://admin-dashboard-ui-five.vercel.app/
+🔗 https://sweet-treats-store.vercel.app/
 
 ---
 
@@ -75,7 +75,7 @@ Dessert/
 1. Clone the repo
 
 ```Bash
-git clone [https://github.com/Saktra007/Dessert.git](https://github.com/Saktra007/Dessert.git)
+git clone https://github.com/Saktra007/Sweet-Treats-Store
 ```
 
 2. Open with Live Server
