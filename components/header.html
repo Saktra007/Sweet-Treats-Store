@@ -1,13 +1,13 @@
 <header>
-  <div>
+  <div class="logo" onclick="window.location.href='#top'">
     <h1>Sweet Treats Store</h1>
   </div>
   <div class="header-controls">
-    <div class="cart" onclick="toggleCart()">
+    <div class="cart" onclick="toggleCart()" title="View Cart" aria-label="Open shopping cart">
       <i class="fa-solid fa-cart-shopping"></i>
       <span class="cart-count" id="cart-count">0</span>
     </div>
-    <button onclick="toggleDarkMode()" id="theme-toggle">
+    <button onclick="toggleDarkMode()" id="theme-toggle" title="Toggle Dark Mode" aria-label="Switch between dark and light Mode">
       <i id="theme-icon" class="fa-solid fa-moon"></i>
     </button>
   </div>
