@@ -3,32 +3,87 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Simple Online Store</title>
+    <title>Sweet Treats Store | Delicious Desserts Online</title>
+
+    <meta
+      name="title"
+      content="Sweet Treats Store | Delicious Desserts Online"
+    />
     <meta
       name="description"
-      content="លក់បង្អែមគ្រប់មុខ រសជាតិផ្អែមឆ្ងាញ់ សេវាកម្មរហ័ស"
+      content="Discover the best selection of desserts, cakes, and pastries at Sweet Treats Store. Fast delivery and premium taste for your sweet cravings."
     />
+    <meta
+      name="keywords"
+      content="desserts online, sweet shop, order cakes, bakery, sweet treats, pastries shop"
+    />
+    <meta name="author" content="Sweet Treats Store" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.yourdomain.com/" />
+    <meta
+      property="og:title"
+      content="Sweet Treats Store | Delicious Desserts Online"
+    />
+    <meta
+      property="og:description"
+      content="Discover the best selection of desserts, cakes, and pastries. Fast delivery and premium taste."
+    />
+    <meta
+      property="og:image"
+      content="https://www.yourdomain.com/assets/images/og-image.jpg"
+    />
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://www.yourdomain.com/" />
+    <meta
+      property="twitter:title"
+      content="Sweet Treats Store | Delicious Desserts Online"
+    />
+    <meta
+      property="twitter:description"
+      content="Discover the best selection of desserts, cakes, and pastries. Fast delivery and premium taste."
+    />
+    <meta
+      property="twitter:image"
+      content="https://www.yourdomain.com/assets/images/og-image.jpg"
+    />
+    <link rel="canonical" href="https://www.yourdomain.com/" />
+
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
-    <meta property="og:title" content="Sweet Treats Store" />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="./assets/images/og-image.jpg" />
-    <link rel="stylesheet" href="./assets/css/style.css" />
     <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="./assets/css/style.css" />
+
     <link
-      rel="shortcut icon"
-      href="./assets/images/Sweet Treats Store.png"
-      type="image/x-icon"
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="./assets/images/apple-touch-icon.png"
     />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/images/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="./assets/images/favicon-16x16.png"
+    />
+    <link rel="manifest" href="./assets/images/site.webmanifest" />
   </head>
   <body>
     <div id="header-placeholder"></div>
+
     <div class="container">
       <div id="hero-placeholder"></div>
 
-      <main>
+      <main id="shop" class="shop">
+        <h2 data-aos="fade-up">Our Sweet Menu</h2>
         <div class="products" id="product-list">
           <!-- Products will be added dynamically -->
         </div>
@@ -37,7 +92,13 @@
       <div class="cart-sidebar" id="cart-sidebar">
         <div class="cart-title">
           <h2>🛒 Shopping Cart</h2>
-          <div class="cart-close" onclick="toggleCart()">X</div>
+          <div
+            class="cart-close"
+            onclick="toggleCart()"
+            aria-label="Close cart"
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </div>
         </div>
         <ul id="cart-items" class="cart-items"></ul>
         <div class="cart-total">
@@ -45,21 +106,27 @@
             <p>Total:</p>
             <p>$<span id="cart-total"> 0.00</span></p>
           </div>
-          <button class="check" onclick="checkout()">Checkout</button>
+          <button class="check" onclick="checkout()">
+            Proceed to Checkout
+          </button>
         </div>
       </div>
+      <div id="cart-overlay" class="cart-overlay" onclick="toggleCart()"></div>
 
       <div id="toast-container" class="toast-container"></div>
 
       <div class="checkout-placeholder" id="checkout-placeholder"></div>
-      <div data-aos="zoom-in" id="footer-placeholder"></div>
     </div>
 
+    <div data-aos="zoom-in" id="footer-placeholder"></div>
+
+    <div id="popup" class="popup">
+      <div class="popup-content">
+        <i class="fa-solid fa-circle-check"></i>
+        <p>🎉 Order Successful!</p>
+      </div>
+    </div>
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
     <script type="module" src="/assets/js/script.js"></script>
-    <script>
-      AOS.init({});
-    </script>
   </body>
-  <div id="popup" class="popup">🎉 Order Successful!</div>
 </html>
