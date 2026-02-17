@@ -20,12 +20,15 @@
 
 ## 📸 Preview
 
-![alt text](image.png)
-![alt text](image-1.png)
-![alt text](image-2.png)
-
 <div align="center">
-  <img src="./assets/images/preview-desktop.png" alt="Desktop Version" width="800px" />
+  <img src="./assets/images//Preview/Desktop/image-1.png" alt="Desktop Version" width="800px" />
+  <img src="./assets/images//Preview/Desktop/image.png" alt="Desktop Version" width="800px" />
+  <img src="./assets/images//Preview/Desktop/image-2.png" alt="Desktop Version" width="800px" />
+</div>
+<div align="center">
+  <img src="./assets/images//Preview/Mobile/Screenshot 2026-02-17 163135.png" alt="Mobile Version" width="800px" />
+  <img src="./assets/images//Preview/Mobile/Screenshot 2026-02-17 163145.png" alt="Mobile Version" width="800px" />
+  <img src="./assets/images//Preview/Mobile/Screenshot 2026-02-17 163154.png" alt="Mobile Version" width="800px" />
 </div>
 
 ---
