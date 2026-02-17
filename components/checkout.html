@@ -7,20 +7,21 @@
           <h1><i class="fa-solid fa-truck-fast"></i>Shipping Information</h1>
           <div class="form-full">
             <div class="form-col">
-              <label> Full Name </label>
+              <label for="name"> Full Name </label>
               <input type="text" id="name" placeholder="John Doe" required />
             </div>
             <div class="form-row">
-              <label>Email Address</label>
-              <input type="email" placeholder="example@mail.com" />
+              <label for="email">Email Address</label>
+              <input type="email" id="eamil" placeholder="example@mail.com" />
             </div>
             <div class="form-row">
-              <label> Phone Number </label>
+              <label for="phone"> Phone Number </label>
               <input
                 type="text"
                 id="phone"
-                pattern="[0-9] {9,10}"
+                pattern="[0-9]{9,10}"
                 placeholder="+885 12 345 678"
+                title="Please enter a valid phone number (9 to 10 digits)"
               />
             </div>
             <div class="form-col">
@@ -62,11 +63,11 @@
             <div class="form-type">
               <label class="radio-card">
                 <input type="radio" name="addr-type" value="home" checked />
-                <span><i class="fa-regular fa-house"></i> Home</span>
+                <span><i class="fa-solid fa-house"></i> Home</span>
               </label>
               <label class="radio-card"
                 ><input type="radio" name="addr-type" value="office" /><span
-                  ><i class="fa-regular fa-building"></i>office</span
+                  ><i class="fa-solid fa-building"></i>office</span
                 ></label
               >
             </div>
@@ -98,15 +99,19 @@
                 <div class="form-full">
                   <div class="form-col">
                     <label>Card Number</label
-                    ><input type="text" placeholder="0000 0000 0000 0000" />
+                    ><input
+                      type="text"
+                      placeholder="0000 0000 0000 0000"
+                      required
+                    />
                   </div>
                   <div class="form-row">
                     <label>Expiry Date</label>
-                    <input type="text" placeholder="MM/YY" />
+                    <input type="text" placeholder="MM/YY" required />
                   </div>
                   <div class="form-row">
                     <label>CVV</label>
-                    <input type="password" placeholder="***" />
+                    <input type="password" placeholder="***" required />
                   </div>
                 </div>
               </div>
@@ -156,36 +161,25 @@
                 </div>
                 <i class="fa-solid fa-circle-check check-icon"></i
               ></label>
-              <div
-                id="aba-pane"
-                class="payment-pane"
-                style="text-align: center"
-              >
-                <div
-                  style="
-                    background: white;
-                    padding: 15px;
-                    border-radius: 12px;
-                    display: inline-block;
-                    border: 1px solid var(--border);
-                  "
-                >
+              <div id="aba-pane" class="payment-pane aba-pane">
+                <div>
                   <img
                     src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=ABA_PAYMENT_DEMO"
                     alt="KHQR"
-                    style="width: 150px"
                   />
                 </div>
-                <p style="margin-top: 12px; font-weight: 700; color: #005e7e">
-                  SCAN TO PAY
-                </p>
+                <p>SCAN TO PAY</p>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <button class="btn btn-submit" type="submit">Submit Order</button>
-      <button class="btn btn-cancel" onclick="checkout()">Cancel</button>
+      <div class="btn">
+        <button type="button" class="btn-cancel" onclick="checkout()">
+          Cancel
+        </button>
+        <button class="btn-submit" type="submit">Submit Order</button>
+      </div>
     </form>
   </div>
 </section>
